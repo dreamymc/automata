@@ -11,16 +11,8 @@ public class TuringMachine {
     private int headPosition;
     private StringBuilder tape;
 
-    public TuringMachine(String input) {
-        initializeTransitions();
-        currentState = "q0";
-        headPosition = 0;
-        tape = new StringBuilder(input + halt); // Blank is added to the end of the tape
-    }
-
-    private void initializeTransitions() {
+    private void transitions() {
         transitions = new HashMap<>();
-
         transitions.put("q0", Map.of(
                 '0', new String[] { "q1", "x", "R" },
                 '1', new String[] { "qR", "1", "R" },
@@ -38,6 +30,13 @@ public class TuringMachine {
     }
 
     public void run() {
+        System.out.print("Enter an input string: ");
+        Scanner scan = new Scanner(System.in);
+        String input = scan.nextLine();
+        transitions();
+        currentState = "q0";
+        headPosition = 0;
+        tape = new StringBuilder(input + halt);
         while (!currentState.equals("qA") && !currentState.equals("qR")) {
             char currentSymbol = tape.charAt(headPosition);
             String[] transition = transitions.get(currentState).get(currentSymbol);
@@ -46,22 +45,15 @@ public class TuringMachine {
             headPosition += (transition[2].equals("R")) ? 1 : -1;
             currentState = transition[0];
 
-            printCurrentState();
+            printStates();
         }
 
         System.out.println(currentState.equals("qA") ? "Accepted" : "Rejected");
+        scan.close();
     }
 
-    private void printCurrentState() {
+    private void printStates() {
         System.out.printf("State: %s, Tape: %s, Head Position: %d%n", currentState, tape, headPosition);
     }
 
-    public static void main(String[] args) {
-        System.out.print("Enter an input string: ");
-        Scanner sc = new Scanner(System.in);
-
-        String input = sc.nextLine(); // Change the input tape as needed
-        TuringMachine turingMachine = new TuringMachine(input);
-        turingMachine.run();
-    }
 }
