@@ -1,10 +1,9 @@
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
+// Define the class NFA (Non-deterministic Finite Automaton)
 public class NFA {
-    private Set<Integer> currentState; // Current state of the NFA
+    // Current state of the NFA
+    private Set<Integer> currentState;
 
     // Define states
     private final Set<Integer> state0 = new HashSet<>(); // State 0
@@ -20,18 +19,28 @@ public class NFA {
     // Define accepting state
     private final Set<Integer> acceptingState = new HashSet<>(); // Accepting state of the NFA
 
+    // Method to run the NFA
     public void run() {
+        // Create a Scanner object for reading the input
         Scanner mikasa = new Scanner(System.in);
+        // Print the transition function
         print();
+        // Prompt the user to enter an input string
         System.out.print("Enter an input string: ");
+        // Read the input string
         String input = mikasa.next();
+        // Process the input and print whether it is accepted or rejected
         System.out.printf("Input '%s': " + (processInput(input) ? "Accepted" : "Rejected"), input);
+        // Close the scanner
         mikasa.close();
     }
 
+    // Method to print the transition function
     public void print() {
+        // Print the alphabet
         System.out.println("Σ = {0, 1}");
 
+        // Print the transitions
         System.out.println("Transition:\nδ(q0, 0) = q1");
         System.out.println("δ(q0, 1) = q0");
 
@@ -45,6 +54,7 @@ public class NFA {
         System.out.println("δ(q3, 1) = q2");
     }
 
+    // Constructor for the NFA
     public NFA() {
         // Initialize states
         state0.add(0);
@@ -67,22 +77,26 @@ public class NFA {
         currentState.add(0); // The initial state is state 0
     }
 
+    // Method to process the input string
     public boolean processInput(String input) {
         // Process each symbol in the input
         for (char symbol : input.toCharArray()) {
-            Set<Integer> nextState = new HashSet<>(); // Next state of the NFA
+            // Initialize the next state
+            Set<Integer> nextState = new HashSet<>();
+            // For each current state
             for (int currentState : this.currentState) {
                 // Add all states reachable from the current state on the current symbol
                 nextState.addAll(transitions[currentState][getSymbolIndex(symbol)]);
             }
-            this.currentState = nextState; // Update the current state
+            // Update the current state
+            this.currentState = nextState;
         }
 
         // Check if the final state is an accepting state
-        return !Collections.disjoint(currentState, acceptingState); // Return true if the final state is an accepting
-                                                                    // state
+        return !Collections.disjoint(currentState, acceptingState); // Return true if the final state is an accepting state
     }
 
+    // Method to get the index of a symbol in the alphabet
     private int getSymbolIndex(char symbol) {
         // Find the index of the symbol in the alphabet
         for (int i = 0; i < alphabet.length; i++) {
@@ -93,3 +107,4 @@ public class NFA {
         return -1; // Symbol not found in the alphabet
     }
 }
+

@@ -2,9 +2,9 @@ import java.util.Scanner;
 
 public class BruteForcePassword {
     public void run() {
-        Scanner scan = new Scanner(System.in);
+        Scanner armin = new Scanner(System.in);
         System.out.print("Enter your password: "); // These section of the code is where the user inputs
-        String targetPassword = scan.next(); // the password and try to crack it.
+        String targetPassword = armin.next(); // the password and try to crack it.
         long startTime = System.nanoTime(); //This specific line of code starts a variable for a timer to accumulate the elapsed
                                             //time of the program.
                                             
@@ -30,7 +30,7 @@ public class BruteForcePassword {
         long timeElapsed = endTime - startTime;
         System.out.println("Execution time in seconds: "
                 + Long.valueOf(timeElapsed).doubleValue() / 1000000000 + "\n");
-        scan.close();
+        armin.close();
     }
 
     // This section of the code tries to brute-force the given password and
