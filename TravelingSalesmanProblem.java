@@ -60,8 +60,8 @@ public class TravelingSalesmanProblem {
             System.out.println(s);
         }
         Scanner jean = new Scanner(System.in);
-        System.out.print("Enter a path:");
-        String inputPath = jean.next();
+        System.out.print("Enter a path: ");
+        String inputPath = jean.nextLine();
         System.out.println(checkPath(inputPath));
         jean.close();
     }

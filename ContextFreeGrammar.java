@@ -38,12 +38,13 @@ public class ContextFreeGrammar {
         // Initialize the current index
         currentIndex = 0;
         // If the input string is valid according to the grammar
-        if (isValid())
+        if (isValid()) {
             // Print a message to the user
             System.out.println("Input string is valid according to the grammar.\n");
-        else
+        } else {
             // Print a message to the user
             System.out.println("Input string is not valid according to the grammar.\n");
+        }
         // Close the scanner
         annie.close();
     }
@@ -101,15 +102,13 @@ public class ContextFreeGrammar {
 
     // Method to check if the next character matches the expected character
     private static boolean match(char expected) {
-        // If there are more characters in the input string and the next character
-        // matches the expected character
+        // If there are more characters in the input string
         if (currentIndex < inputString.length() && inputString.charAt(currentIndex) == expected) {
-            // Move to the next character
-            currentIndex++;
-            // Return true
+            // Return true without moving to the next character
             return true;
         }
         // Return false
         return false;
     }
+
 }
